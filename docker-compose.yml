@@ -15,14 +15,12 @@ services:
     ports:
       - "2181:2181"
   logstash:
-    image: docker.elastic.co/logstash/logstash:5.4.0
+    build: logstash/
     depends_on:
       - kafka
       - elasticsearch
-    command: "--debug -f /logstash.conf"
     volumes:
       - "$PWD/logstash.conf:/logstash.conf"
-      - "$PWD/logstash_in.log:/logstash_in.log"
       - "$PWD/logstash_out.log:/logstash_out.log"
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:5.4.0
